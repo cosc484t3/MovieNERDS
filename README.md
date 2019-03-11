@@ -13,4 +13,4 @@ When I created the movie component, all of its PropTypes are required, so a movi
 - imageURL: String //source for the image tag to display movie poster thumbnail
 
 **Things I'm going to add:**
-- _bannerURL_ as a source for the image tag to display recent movies across the top of the screen
+- _bannerURL_ as a source for the image tag to display recent movies across the top of the screen (1280 x 720)
