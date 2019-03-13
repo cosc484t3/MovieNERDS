@@ -1,0 +1,30 @@
+.header {
+    display: flexbox;
+}
+
+.siteHeader {
+    display: inline-flex;
+    background-color: lightslategray;
+    /* height: 150px; */
+    height: 15%;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+#homepage-logo {
+    /* display: inline-flex; */
+    height: 10rem;
+    width: auto;
+    margin: 10px;
+}
+
+#siteTitle {
+    font-size: 90px;
+    text-decoration: none;
+}
+
+a {
+    display: inherit;
+    align-items: center
+}

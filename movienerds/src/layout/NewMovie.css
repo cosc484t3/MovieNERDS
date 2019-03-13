@@ -1,0 +1,15 @@
+.new-movie-container
+{
+    border-radius: 10px;
+    margin: 20px;
+    padding: 10px 50px;
+    background-color: lightseagreen
+}
+
+input[type=text] 
+{
+    width: 60%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
