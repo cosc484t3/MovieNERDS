@@ -1,4 +1,6 @@
-const fileName = '../data/movies-list.json'
+// const fileName = '../data/movies-list.json';
+const path = require('path');
+const fileName = path.resolve(__dirname, '../data/movies-list.json');
 let movieData = require(fileName)
 const helper = require('../helpers/helper')
 

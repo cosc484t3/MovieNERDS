@@ -42,7 +42,7 @@ export class Homepage extends Component {
             return(
               <div>
                 <h3>{movie.title}</h3>
-                {movie.quotes.map(quote => <p>{quote}</p>)}
+                {/* {movie.quotes.map(quote => <p>{quote}</p>)} */}
               </div>
             )
           })}
