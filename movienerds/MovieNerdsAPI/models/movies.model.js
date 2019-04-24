@@ -3,7 +3,6 @@ let movieData = require(fileName)
 const helper = require('../helpers/helper')
 
 function getMovies(){
-    console.log(movieData)
     return new Promise((resolve, reject) => {
         if(movieData.movies.length === 0){
             reject({
@@ -11,14 +10,16 @@ function getMovies(){
                 status: 202
             })
         }
+        let allMovies = {count: movieData.movies.length, movies: movieData.movies}
         resolve(movieData)
     })
 }
 
 function getRecentMovies(){
     return new Promise((resolve, reject) => {
-        const minRecentYear = 2016
+        const minRecentYear = 2015
         let recentMovies = movieData.movies.filter(movie => movie.year >= minRecentYear)
+        recentMovies = { count: recentMovies.length, movies: recentMovies}
         if(recentMovies.length === 0){
             reject({
                 message: 'No recent movies available',

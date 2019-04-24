@@ -1,64 +1,80 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import '../layout/Homepage.css'
+
+// Components
+import { RecentMovies } from './RecentMovies'
+
+// CSS file
+import '../layout/homepage.css'
+
+// API general route
 import { MOVIE_NERDS_API_URL } from './App'
 
 export class Homepage extends Component {
-  state = {
-    count: "",
-    movies: []
+  constructor(props){
+    super(props);
+    this.state = {
+      count: "",
+      movies: [],
+      movieThumbnails: []
+    }
+
+    this.chooseAQuote = this.chooseAQuote.bind(this)
   }
 
   async componentDidMount(){
     try {
-      const res = await fetch(`${MOVIE_NERDS_API_URL}/movies`)
-      console.log(res)
-      const movieData = await res.json();
-      console.log(movieData)
-      this.setState({ count: movieData.count, movies: movieData.movies})
-      console.log("Newly set state: ", this.state)
+      const response = await fetch(`${MOVIE_NERDS_API_URL}/movies`)
+      const movieData = await response.json();
+      this.setState({ count: movieData.count, movies: movieData.movies, movieThumbnails: [movieData.movies[0], movieData.movies[1], movieData.movies[2]]})
     } catch(e) {
       console.log(e)
     }
   }
 
+  chooseAQuote(){
+    Math.floor(Math.random() * 2)
+  }
+
   render() {
-    const { movies } = this.state
+    const { movies, movieThumbnails } = this.state
+    let quoteIndex = this.chooseAQuote()
 
     if(!movies) return null;
 
     return (
       <div>
-        <p>Image slider of recently uploaded movies</p>
+        <h2 style={{paddingLeft: "15px"}}>Recent Movies</h2>
         <div id="recently-uploaded-movies">
-          
+          <RecentMovies />
         </div>
-        
-        <div id="movie-quotes-display">
+        <div id="movie-quotes-display" style={{paddingLeft: "16px"}}>
           <Link to="/movie-quotes" style={{textDecoration: "none", color: "white"}}>
-            <h2>Random Movie Quotes</h2>
+            <h2 style={{color: "black"}}>Random Movie Quotes</h2>
           </Link>
           {movies.map(movie => {
             return(
               <div>
-                <h3>{movie.title}</h3>
-                {movie.quotes.map(quote => <p>{quote}</p>)}
+                <p>{movie.quotes[1]}</p>
+                <p>{movie.title}</p>
               </div>
             )
           })}
         </div>
-        <p>First three movies with images and descriptions beneath them</p>
-        <div id="movie thumbnail display">
-          <h3>Sample Movies and Descriptions</h3>
-          {movies.map(movie => {
-            return (
-              <div>
-                <img src={movie.imageURL} alt={movie.title} />
-                <h3>{movie.title}</h3>
-                <p>{movie.description}</p>
-              </div>
-            )
-          })}
+        <div id="movie thumbnail display" style={{paddingLeft: "15px"}}>
+          <h2>Featured Movies & Descriptions</h2>
+          <div className="movie-grid">
+            {movieThumbnails.map(thumbnail => {
+              return(
+                <div className="movie-grid-item">
+                  <img src={thumbnail.imageURL} alt={thumbnail.title} style={{width: "250px"}}/>
+                  <br />
+                  <h3>{thumbnail.title}</h3>
+                  <div>{thumbnail.description}</div>
+                </div>
+              )
+            })}
+          </div>
         </div>
       </div>
     )

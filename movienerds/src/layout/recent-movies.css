@@ -1,0 +1,50 @@
+/* slideshow container in W3Schools */
+.slideshow {
+    width: 640px;
+    height: 360px;
+    /* position: relative; */
+    margin: auto;
+    text-align: center;
+}
+
+.slide {
+    position: relative;
+    width: 640px;
+}
+
+.recent-movie-banner:hover {
+    background-color: purple;
+}
+
+.description {
+    position: relative;
+    /* display: none; */
+    background-color: cyan;
+    margin-left: 640px;
+    width: 20px;
+    height: 360px;
+}
+
+.recent-movie-banner {
+    width: 640px;
+    height: 360px;
+    float: left;
+}
+
+.left-arrow, .right-arrow {
+    cursor: pointer;
+    position: absolute;
+    top: 57%;
+    width: auto;
+    margin-top: -22px;
+    padding: 16px;
+    color: red;
+    font-weight: bold;
+    font-size: 30px;
+    user-select: none;
+    opacity: 0.5
+}
+
+.right-arrow {
+    right: 530px;
+}
