@@ -1,17 +1,23 @@
 # MovieNERDS
 
-## How I defined a movie object:
+## How we defined a movie object:
 When I created the movie component, all of its PropTypes are required, so a movie object has to have the following:
 - id: number
 - title: String
 - year: number
 - rating: String //(PG, PG-13, R, NR, MA)
-- cast: String[]
+- cast: Object[] //each object in the array has an **actorName** and **characterName** property
 - quotes: String[] //I just made each movie object have two quotes, so the length of the array is just 2
 - genres: String[] //Whatver IMDB has as the genre for the movie is how I've categorized it
 - synopsis: String //tweeked a bit but meant for more of a sematic meaning than anything
 - imageURL: String //source for the image tag to display movie poster thumbnail (1000 x 1500)
 - bannerURL: String //source for the image tag to display recent movies across the top of the screen (1280 x 720)
+
+## How we defined a comment object:
+- id: number,
+- heading: String,
+- body: String //We could either have a heading and a body, or just a text property
+- name: String //name of person who leaves the comment
 
 ## How to start the API:
 The API should have it's own folder in the app's folder called _MovieNerdsAPI_
