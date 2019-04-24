@@ -7,9 +7,9 @@ function getNewId(array){
     return 1;
 }
 
-function incrementMovieCount(movieData){
-    movieData.count += 1
-    return movieData.count;
+function incrementMovieCount(Movie){
+    Movie.count += 1
+    return Movie.count;
 }
 
 function mustBeInArray(array, id){

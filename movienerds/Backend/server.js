@@ -20,5 +20,5 @@ mongoose
 
 app.use('/movies', movies);
 
-const PORT = 5000;
+const PORT = 4840;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

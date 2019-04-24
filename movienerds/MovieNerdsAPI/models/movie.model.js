@@ -17,7 +17,7 @@ const MovieSchema = new Schema({
         type: [String], //Hold multiple cast members based on how many the user types in
         default: undefined
     }, 
-    qoutes: { 
+    quotes: { 
         type: [String],
         default: undefined
     },
@@ -25,7 +25,7 @@ const MovieSchema = new Schema({
         type: [String],
         default: undefined
     }, 
-    description: { 
+    synopsis: { 
         type: String
     }, 
     imageURL: { 
@@ -36,6 +36,6 @@ const MovieSchema = new Schema({
     }
 })
 
-const Movie = mongoose.model('movie', MovieSchema);
+const Movie = mongoose.model('movies', MovieSchema);
 
 module.exports = Movie;

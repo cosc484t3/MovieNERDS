@@ -2,24 +2,32 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import '../layout/Homepage.css'
 import { MOVIE_NERDS_API_URL } from './App'
+import axios from 'axios';
 
 export class Homepage extends Component {
   state = {
-    count: "",
     movies: []
   }
 
   async componentDidMount(){
-    try {
-      const res = await fetch(`${MOVIE_NERDS_API_URL}/movies`)
-      console.log(res)
-      const movieData = await res.json();
-      console.log(movieData)
-      this.setState({ count: movieData.count, movies: movieData.movies})
-      console.log("Newly set state: ", this.state)
-    } catch(e) {
-      console.log(e)
-    }
+    axios.get('http://localhost:5000/movies')
+    .then(res => { 
+      this.setState({movies: res.data})
+    })
+    .catch(function (error) { 
+      console.log(error);
+    })
+    // try {
+     
+    //   const res = await fetch(`${MOVIE_NERDS_API_URL}/movies`)
+    //   console.log(res)
+    //   const movieData = await res.json();
+    //   console.log(movieData)
+    //   this.setState({movies: movieData.movies})
+    //   console.log("Newly set state: ", this.state)
+    // } catch(e) {
+    //   console.log(e)
+    // }
   }
 
   render() {
@@ -42,7 +50,7 @@ export class Homepage extends Component {
             return(
               <div>
                 <h3>{movie.title}</h3>
-                {/* {movie.quotes.map(quote => <p>{quote}</p>)} */}
+                {movie.quotes.map(quote => <p id="quotes">{quote}</p>)}
               </div>
             )
           })}
@@ -55,7 +63,7 @@ export class Homepage extends Component {
               <div>
                 <img src={movie.imageURL} alt={movie.title} />
                 <h3>{movie.title}</h3>
-                <p>{movie.description}</p>
+                <p>{movie.synopsis}</p>
               </div>
             )
           })}
