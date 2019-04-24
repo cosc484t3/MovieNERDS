@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 
-export class MovieDetail extends Component {
+export class RecentMovies extends Component {
     render() {
         return (
             <div>
-                Gimme the details
+                <p>Hey dere, I'm a recent movie</p>
             </div>
         );
     }

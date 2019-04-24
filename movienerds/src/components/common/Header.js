@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import '../layout/header.css'
+import '../../layout/header.css'
 import { NavBar } from './NavBar'
-const logo = require('../images/movieNerdsLogo.png')
+const logo = require('../../images/movieNerdsLogo.png')
 
 export class Header extends Component{
   render() {

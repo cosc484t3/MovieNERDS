@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 
 // API general route
-import { MOVIE_NERDS_API_URL } from './App'
+import { MOVIE_NERDS_API_URL } from '../common/App'
 
 // CSS file
-import '../layout/recent-movies.css';
+import '../../layout/recent-movies.css';
 
-export class RecentMovies extends Component {
+export class RecentMoviesSlideshow extends Component {
 
   constructor(props){
     super(props)
@@ -41,7 +42,6 @@ export class RecentMovies extends Component {
       nextSlide = index + 1;
     }
     this.setState({ currentMovie: recentMovies[nextSlide] })
-    console.log("This.state.currentMovie (nextSlide): ", this.state.currentMovie)
     return nextSlide;
   }
 
@@ -56,8 +56,6 @@ export class RecentMovies extends Component {
       previousSlide = index - 1;
     }
     this.setState({ currentMovie: recentMovies[previousSlide] })
-
-    console.log("This.state.currentMovie (previousSlide): ", this.state.currentMovie)
   }
 
   render() {
@@ -67,14 +65,12 @@ export class RecentMovies extends Component {
 
     let slideIndex = recentMovies.findIndex(movie => movie.id === currentMovie.id)
 
-    //* Error when I click for the 16th time (after The Hate U Give)
-    console.log("Slide Index for current movie: ", slideIndex)
-
     return (
       <div className="slideshow">
         <div className="slide">
-          <img className="recent-movie-banner" src={currentMovie.bannerURL} alt={currentMovie.title}/>
-          {/* <div className="description">{currentMovie.title}</div> */}
+          <Link to={`/${currentMovie.id}`}>
+            <img className="recent-movie-banner" src={currentMovie.bannerURL} alt={currentMovie.title}/>
+          </Link>
         </div>
         <div className="left-arrow" onClick={() => this.previousSlide(slideIndex)}>&#9664;</div>
         <div className="right-arrow" onClick={() => this.nextSlide(slideIndex)}>&#9654;</div>

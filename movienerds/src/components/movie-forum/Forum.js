@@ -1,52 +1,34 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { MOVIE_NERDS_API_URL } from './App'
+import { MOVIE_NERDS_API_URL } from '../common/App'
 
 export class Forum extends Component {
   state = {
-    count: "",
-    movies: []
+    movie: {}
   }
 
   async componentDidMount(){
     try {
-      const res = await fetch(`${MOVIE_NERDS_API_URL}/movies`)
-      console.log(res)
-      const movieData = await res.json();
-      console.log(movieData)
-      this.setState({ count: movieData.count, movies: movieData.movies})
-      console.log("Newly set state: ", this.state)
+      // retrieving the id from the url pathname and slicing it to ignore the / in the pathname
+      let movieID = window.location.pathname.slice(1) 
+      const response = await fetch(`${MOVIE_NERDS_API_URL}/movies/${movieID}`) //calling the API to get one specific movie object
+      const movie = await response.json()
+
+      this.setState({movie: movie}) // setting the state with the one movie object we received
     } catch(e) {
       console.log(e)
     }
   }
   
   render() {
-    const { movies } = this.state
+    const { movie } = this.state
 
-    if(!movies) return null;
+    if(!movie) return null;
 
     return (
-      <div>
-        <p>Image slider of recently uploaded movies</p>
-        <div id="recently-uploaded-movies">
-          
+        <div className="body">
+            <h1>{movie.title}</h1>
         </div>
-        
-        <div id="movie-quotes-display">
-          <Link to="/movie-quotes" style={{textDecoration: "none", color: "white"}}>
-            <h2>Random Movie Quotes</h2>
-          </Link>
-          {movies.map(movie => {
-            return(
-              <div>
-                <h3>{movie.title}</h3>
-                {movie.quotes.map(quote => <p>{quote}</p>)}
-              </div>
-            )
-          })}
-        </div>
-      </div>
     )
   }
 }

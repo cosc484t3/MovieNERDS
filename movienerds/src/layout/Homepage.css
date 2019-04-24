@@ -1,12 +1,15 @@
+.body {
+    margin: 25px;
+}
+
 #movie-quotes-display {
     background-color: white;
 }
 
 #recently-uploaded-movies {
     padding: 0px 25px 0px;
-    margin-top: 15px;
-    width: 640px;
-    height: auto;
+    width: 960px;
+    height: 600px;
     margin: auto;
 }
 

@@ -2,13 +2,13 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 
 // Components
-import { RecentMovies } from './RecentMovies'
+import { RecentMoviesSlideshow } from './RecentMoviesSlideshow'
 
 // CSS file
-import '../layout/homepage.css'
+import '../../layout/homepage.css'
 
 // API general route
-import { MOVIE_NERDS_API_URL } from './App'
+import { MOVIE_NERDS_API_URL } from '../common/App'
 
 export class Homepage extends Component {
   constructor(props){
@@ -43,10 +43,10 @@ export class Homepage extends Component {
     if(!movies) return null;
 
     return (
-      <div>
+      <div className="body">
         <h2 style={{paddingLeft: "15px"}}>Recent Movies</h2>
         <div id="recently-uploaded-movies">
-          <RecentMovies />
+          <RecentMoviesSlideshow />
         </div>
         <div id="movie-quotes-display" style={{paddingLeft: "16px"}}>
           <Link to="/movie-quotes" style={{textDecoration: "none", color: "white"}}>
@@ -55,7 +55,7 @@ export class Homepage extends Component {
           {movies.map(movie => {
             return(
               <div>
-                <p>{movie.quotes[1]}</p>
+                <p>{movie.quotes[this.chooseAQuote()]}</p>
                 <p>{movie.title}</p>
               </div>
             )

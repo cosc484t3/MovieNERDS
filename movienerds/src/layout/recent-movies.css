@@ -1,7 +1,7 @@
 /* slideshow container in W3Schools */
 .slideshow {
-    width: 640px;
-    height: 360px;
+    width: 960px;
+    height: auto;
     /* position: relative; */
     margin: auto;
     text-align: center;
@@ -16,25 +16,16 @@
     background-color: purple;
 }
 
-.description {
-    position: relative;
-    /* display: none; */
-    background-color: cyan;
-    margin-left: 640px;
-    width: 20px;
-    height: 360px;
-}
-
 .recent-movie-banner {
-    width: 640px;
-    height: 360px;
+    width: 960px;
+    height: auto;
     float: left;
 }
 
 .left-arrow, .right-arrow {
     cursor: pointer;
     position: absolute;
-    top: 57%;
+    top: 70%;
     width: auto;
     margin-top: -22px;
     padding: 16px;
@@ -46,5 +37,5 @@
 }
 
 .right-arrow {
-    right: 530px;
+    right: 365px;
 }

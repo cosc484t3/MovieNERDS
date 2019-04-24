@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { MOVIE_NERDS_API_URL } from './App'
 import Autosuggest from 'react-autosuggest'
-import '../layout/search-bar.css'
+import '../../layout/search-bar.css'
 import { Link } from 'react-router-dom'
 
 //
