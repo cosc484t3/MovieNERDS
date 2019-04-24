@@ -14,7 +14,8 @@ When I created the movie component, all of its PropTypes are required, so a movi
 - bannerURL: String //source for the image tag to display recent movies across the top of the screen (1280 x 720)
 
 ## How we defined a comment object:
-- id: number,
+- commentId: number, //unique property to iterate over
+- movieId: number, //to link the comments to a specific movie we need to associate the movie's id with the comment object
 - heading: String,
 - body: String //We could either have a heading and a body, or just a text property
 - name: String //name of person who leaves the comment
