@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import '../layout/Header.css'
+import '../layout/header.css'
 import { NavBar } from './NavBar'
 const logo = require('../images/movieNerdsLogo.png')
 
