@@ -1,4 +1,4 @@
-/* // const fileName = '../data/movies-list.json';
+// const fileName = '../data/movies-list.json';
 const path = require('path');
 const fileName = path.resolve(__dirname, '../data/movies-list.json');
 let MovieData = require(fileName)
@@ -84,4 +84,4 @@ module.exports = {
     insertMovie,
     updateMovie,
     deleteMovie
-} */
+}

@@ -1,4 +1,4 @@
-/* const fs = require('fs')
+const fs = require('fs')
 
 function getNewId(array){
     if(array.length > 0){
@@ -39,4 +39,4 @@ module.exports = {
     incrementMovieCount,
     mustBeInArray,
     writeJSONFile
-} */
+}
