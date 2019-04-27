@@ -21,7 +21,10 @@ export class NavBar extends Component {
               <li className="menu-options">Insert New Movie</li>
             </Link>
             <Link to="/movieforum">
-              <li className="forum">Forum</li>
+              <li className="menu-options">Forum</li>
+            </Link>
+            <Link to="/character-details">
+              <li className="menu-options">Character Details</li>
             </Link>
           </ul>
           <input type="text" placeholder="Search Movie..." id="search"/>
