@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import '../layout/App.css';
 import {Header} from './Header'
-
+import '../../layout/app.css'
 export const MOVIE_NERDS_API_URL = 'http://localhost:5000'
 
 export class App extends Component {

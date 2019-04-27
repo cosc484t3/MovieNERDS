@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { MOVIE_NERDS_API_URL } from './App'
+import { MOVIE_NERDS_API_URL } from '../common/App'
 
 export class Forum extends Component {
   state = {
@@ -15,7 +15,6 @@ export class Forum extends Component {
       const movieData = await res.json();
       console.log(movieData)
       this.setState({ count: movieData.count, movies: movieData.movies})
-      console.log("Newly set state: ", this.state)
     } catch(e) {
       console.log(e)
     }
@@ -26,7 +25,6 @@ export class Forum extends Component {
     if(!movies) return null;
 
     return (
-      
       <div>
         <p>Image slider of recently uploaded movies</p>
         <div id="recently-uploaded-movies">
