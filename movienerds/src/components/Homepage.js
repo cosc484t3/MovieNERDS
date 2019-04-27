@@ -10,14 +10,24 @@ export class Homepage extends Component {
   }
 
   async componentDidMount(){
-    axios.get(`${MOVIE_NERDS_API_URL}/movies`)
+    axios.get('http://localhost:5000/movies')
     .then(res => { 
-      console.log("Res: ", res)
       this.setState({movies: res.data})
     })
     .catch(function (error) { 
       console.log(error);
     })
+    // try {
+     
+    //   const res = await fetch(`${MOVIE_NERDS_API_URL}/movies`)
+    //   console.log(res)
+    //   const movieData = await res.json();
+    //   console.log(movieData)
+    //   this.setState({movies: movieData.movies})
+    //   console.log("Newly set state: ", this.state)
+    // } catch(e) {
+    //   console.log(e)
+    // }
   }
 
   render() {
