@@ -1,25 +1,28 @@
-const fileName = '../data/movies-list.json'
-let movieData = require(fileName)
+// const fileName = '../data/movies-list.json';
+const path = require('path');
+const fileName = path.resolve(__dirname, '../data/movies-list.json');
+let MovieData = require(fileName)
 const helper = require('../helpers/helper')
+const Movie = require('../../Backend/models/Movie');
+const moviesController = require('../../Backend/controllers/moviesController');
 
 function getMovies(){
+    console.log(Movie)
     return new Promise((resolve, reject) => {
-        if(movieData.movies.length === 0){
+        if(Movie.length === 0){
             reject({
                 message: 'No movies available',
                 status: 202
             })
         }
-        let allMovies = {count: movieData.movies.length, movies: movieData.movies}
-        resolve(movieData)
+        resolve(Movie)
     })
 }
 
 function getRecentMovies(){
     return new Promise((resolve, reject) => {
-        const minRecentYear = 2015
-        let recentMovies = movieData.movies.filter(movie => movie.year >= minRecentYear)
-        recentMovies = { count: recentMovies.length, movies: recentMovies}
+        const minRecentYear = 2016
+        let recentMovies = Movie.movies.filter(movie => movie.year >= minRecentYear)
         if(recentMovies.length === 0){
             reject({
                 message: 'No recent movies available',
@@ -29,10 +32,9 @@ function getRecentMovies(){
         resolve(recentMovies)
     })
 }
-
-function getMovie(id){
+function getMovie(){
     return new Promise((resolve, reject) => {
-        helper.mustBeInArray(movieData.movies, id)
+        helper.mustBeInArray(Movie.movies)
         .then(movie => resolve(movie))
         .catch(err => reject(err))
     })
@@ -40,24 +42,24 @@ function getMovie(id){
 
 function insertMovie(newMovie){
     return new Promise((resolve, reject) => {
-        const id = { id: helper.getNewId(movieData.movies) }
+        const id = { id: helper.getNewId(Movie.movies) }
         newMovie = {...id, ...newMovie}
-        movieData.movies.push(newMovie)
-        helper.incrementMovieCount(movieData)
-        helper.writeJSONFile(fileName, movieData)
+        Movie.movies.push(newMovie)
+        helper.incrementMovieCount(Movie)
+        moviesController.createMovie
         resolve(newMovie)
     })
 }
 
 function updateMovie(id, newMovie){
     return new Promise((resolve, reject) => {
-        helper.mustBeInArray(movieData.movies, id)
+        helper.mustBeInArray(Movie.movies, id)
         .then(movie => {
-            const index = movieData.movies.findIndex(m => m.id == movie.id)
+            const index = Movie.movies.findIndex(m => m.id == movie.id)
             id = { id: movie.id }
-            movieData.movies[index] = { ...id, ...newMovie }
-            helper.writeJSONFile(fileName, movieData)
-            resolve(movieData.movies[index])
+            Movie.movies[index] = { ...id, ...newMovie }
+            moviesController.updateMovie
+            resolve(Movie.movies[index])
         })
         .catch(err => reject(err))
     })
@@ -67,8 +69,8 @@ function deleteMovie(id){
     return new Promise((resolve, reject) => {
         helper.mustBeInArray(id)
         .then(() => {
-            movieData.movies = movieData.movies.filter(m => m.id !== id)
-            helper.writeJSONFile(fileName, movieData)
+            Movie.movies = Movie.movies.filter(m => m.id !== id)
+            helper.writeJSONFile(fileName, Movie)
             resolve()
         })
         .catch(err => reject(err))

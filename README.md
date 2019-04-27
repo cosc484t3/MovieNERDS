@@ -9,17 +9,17 @@ When I created the movie component, all of its PropTypes are required, so a movi
 - cast: String[]
 - quotes: String[] //I just made each movie object have two quotes, so the length of the array is just 2
 - genres: String[] //Whatver IMDB has as the genre for the movie is how I've categorized it
-- description: String
-- imageURL: String //source for the image tag to display movie poster thumbnail
-
-**Things I'm going to add:**
-- _bannerURL_ as a source for the image tag to display recent movies across the top of the screen (1280 x 720)
+- synopsis: String //tweeked a bit but meant for more of a sematic meaning than anything
+- imageURL: String //source for the image tag to display movie poster thumbnail (1000 x 1500)
+- bannerURL: String //source for the image tag to display recent movies across the top of the screen (1280 x 720)
 
 ## How to start the API:
 The API should have it's own folder in the app's folder called _MovieNerdsAPI_
 In order to use it's data in the app, you have to start the API.
 How do you do that? 
 - Open your terminal in VS Code by clicking **Ctrl + \`**
+- cd .\movienerds\MovieNerdsAPI
+- ```npm install``` (Only do this if you're pulling this repo for the first time)
 - Run the command ```npm run dev```, and that'll get the API running on your localhost
 
 In order to see the API running in the browser, type in http://localhost:4840 (I have it running on port 4840 becuase why not),
@@ -30,7 +30,8 @@ I have some more routes in there with different logic that can be implemented la
 
 ## How to start the React app:
 So, I installed a handful of packages for react in order to make it a little smoother to code. Here are the packages you need followed by the script to install all of them:
-
+- cd .\movienerds
+-  ```npm install``` (Only do this if you're pulling this repo for the first time)
 - react-router-dom: This allows me to use react Links, Route, BrowserRouter, and Switch which all make it easier to link to different pages instead of using the standard html a tag as a link (I use these React features in the _AppRouter.js_ file)
   ```
   npm install --save-dev react-router-dom

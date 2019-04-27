@@ -6,8 +6,8 @@ import { SearchBar } from './SearchBar';
 export class NavBar extends Component {
   render() {
     return (
-      <div className = "navbar">
-        <div className = "menu-container">
+      <div className="navbar">
+        <div className="menu-container">
           <ul className="menu">
             <Link to="/all-movies">
               <li className="menu-options">All Movies</li>
