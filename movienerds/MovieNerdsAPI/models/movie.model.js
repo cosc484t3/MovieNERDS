@@ -4,6 +4,9 @@ const Schema = mongoose.Schema;
 //Schema for how we define a movie object 
 
 const MovieSchema = new Schema({ 
+    id: { 
+        type: Number
+    },
     title: { 
         type: String
     }, 

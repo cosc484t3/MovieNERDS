@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import '../layout/NavBar.css'
+import {Button} from 'react-bootstrap'
 
 export class NavBar extends Component {
   render() {
