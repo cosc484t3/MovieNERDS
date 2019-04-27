@@ -12,13 +12,12 @@ When I created the movie component, all of its PropTypes are required, so a movi
 - synopsis: String //tweeked a bit but meant for more of a sematic meaning than anything
 - imageURL: String //source for the image tag to display movie poster thumbnail (1000 x 1500)
 - bannerURL: String //source for the image tag to display recent movies across the top of the screen (1280 x 720)
-
-## How we defined a comment object:
 - commentId: number, //unique property to iterate over
-- movieId: number, //to link the comments to a specific movie we need to associate the movie's id with the comment object
-- heading: String,
-- body: String //We could either have a heading and a body, or just a text property
-- name: String //name of person who leaves the comment
+- comments: Array //holds all of the comment objects
+  - comment: Object
+    - id: number //unique identifier for each comment object
+    - body: String //will store the text that the user inputs
+    - username: String //username of person who leaves the comment
 
 ## How to start the API:
 The API should have it's own folder in the app's folder called _MovieNerdsAPI_
@@ -42,11 +41,6 @@ So, I installed a handful of packages for react in order to make it a little smo
 - react-router-dom: This allows me to use react Links, Route, BrowserRouter, and Switch which all make it easier to link to different pages instead of using the standard html a tag as a link (I use these React features in the _AppRouter.js_ file)
   ```
   npm install --save-dev react-router-dom
-  ```
-- prop-types: In my Movie.js file, I used prop types which I'm using to define the shape of a movie object. So, a movie object has to have the things I listed above, and prop-types just let you know what properties are included in an object, and if those properties are required.
-  
-  ```
-  npm install --save-dev prop-types
   ```
   
   After you install those two dependencies, all you have to do is run ```npm start``` and that'll get your react app running.
