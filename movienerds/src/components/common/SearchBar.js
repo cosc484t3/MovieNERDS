@@ -3,8 +3,7 @@ import { MOVIE_NERDS_API_URL } from './App'
 import Autosuggest from 'react-autosuggest'
 import '../../layout/search-bar.css'
 import { Link } from 'react-router-dom'
-
-//
+import axios from 'axios'
 
 const getSuggestions = (movies, value) => {
     const inputValue = value.trim().toLowerCase();
@@ -15,7 +14,6 @@ const getSuggestions = (movies, value) => {
     });
 };
 
-//was suggestion.name
 const getSuggestionValue = movieSuggestion => movieSuggestion.title
 
 const renderSuggestion = movieSuggestion => ( 
@@ -27,19 +25,20 @@ const renderSuggestion = movieSuggestion => (
 
 export class SearchBar extends Component {
     
-    constructor(){
-        super()
-        this.state = {
-            searchInput: "",
+    state = {
+        searchInput: "",
             movies: [],
             movieSearchResults: []
-        }
     }
     
     async componentDidMount(){
-        const response = await fetch(`${MOVIE_NERDS_API_URL}/movies`)
-        const movieData = await response.json();
-        this.setState({movies: movieData.movies})
+        axios.get(`${MOVIE_NERDS_API_URL}/movies`)
+        .then(res => { 
+        this.setState({movies: res.data, movieThumbnails: [res.data[0], res.data[1], res.data[2]]})
+        })
+        .catch(function (error) { 
+        console.log(error);
+        })
     }
 
     onSuggestionsFetchRequested = ({value}) => {
@@ -70,6 +69,8 @@ export class SearchBar extends Component {
             value: searchInput,
             onChange: this.onChange
         }
+
+        if(!movies) return null
 
         return (
             <div className="search-container">

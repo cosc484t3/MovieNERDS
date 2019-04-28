@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
 import { MOVIE_NERDS_API_URL } from '../common/App'
+import axios from 'axios'
 
 export class Forum extends Component {
   state = {
@@ -11,10 +11,13 @@ export class Forum extends Component {
     try {
       // retrieving the id from the url pathname and slicing it to ignore the / in the pathname
       let movieID = window.location.pathname.slice(1) 
-      const response = await fetch(`${MOVIE_NERDS_API_URL}/movies/${movieID}`) //calling the API to get one specific movie object
-      const movie = await response.json()
-
-      this.setState({movie: movie}) // setting the state with the one movie object we received
+      axios.get(`${MOVIE_NERDS_API_URL}/movies/${movieID}`)
+      .then(res => { 
+        this.setState({movie: res.data})
+      })
+      .catch(function (error) { 
+        console.log(error);
+      })
     } catch(e) {
       console.log(e)
     }
