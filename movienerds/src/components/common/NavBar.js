@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import '../layout/NavBar.css'
+import '../../layout/nav-bar.css'
+import { SearchBar } from './SearchBar';
 
 export class NavBar extends Component {
   render() {
     return (
-      <div className = "navbar">
-        <div className = "menu-container">
+      <div className="navbar">
+        <div className="menu-container">
           <ul className="menu">
             <Link to="/all-movies">
               <li className="menu-options">All Movies</li>
@@ -27,7 +28,7 @@ export class NavBar extends Component {
               <li className="menu-options">Character Details</li>
             </Link>
           </ul>
-          <input type="text" placeholder="Search Movie..." id="search"/>
+          <SearchBar />
         </div>
       </div>
     )

@@ -41,14 +41,3 @@
 a {
     text-decoration: none
 }
-
-#search {
-    display: inline;
-    max-width: 30%;
-}
-
-input[placeholder="Search Movie..."] {
-    max-height: 17px;
-    font-size: 20px;
-    margin: 20.5 0px;
-}

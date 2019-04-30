@@ -4,10 +4,11 @@ const movieController = require('../controllers/moviesController');
 const Movie = require('../models/Movie');
 
 //Get route for retrieving all of the movies within the database
-router.get('/', (req, res) => { 
-    Movie.find()
+router.get('/', (err, res) => { 
+        Movie.find()
     .sort({Title: 1})
     .then(movies => res.json(movies))
+    
 });
 
 router.route('/add')

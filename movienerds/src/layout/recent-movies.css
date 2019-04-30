@@ -1,0 +1,41 @@
+/* slideshow container in W3Schools */
+.slideshow {
+    width: 960px;
+    height: auto;
+    /* position: relative; */
+    margin: auto;
+    text-align: center;
+}
+
+.slide {
+    position: relative;
+    width: 640px;
+}
+
+.recent-movie-banner:hover {
+    background-color: purple;
+}
+
+.recent-movie-banner {
+    width: 960px;
+    height: auto;
+    float: left;
+}
+
+.left-arrow, .right-arrow {
+    cursor: pointer;
+    position: absolute;
+    top: 70%;
+    width: auto;
+    margin-top: -22px;
+    padding: 16px;
+    color: red;
+    font-weight: bold;
+    font-size: 30px;
+    user-select: none;
+    opacity: 0.5
+}
+
+.right-arrow {
+    right: 365px;
+}

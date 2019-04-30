@@ -6,6 +6,17 @@ exports.createMovie = (req, res) => {
         if(err) { 
             res.status(500).send(err);
         }
-        res.status(200).json(movie);
+        res.status(200).json({
+            message: `The movie ${newMovie.title} has been created`,
+            content: newMovie
+        });
+    });
+};
+
+exports.updateMovie = (req, res) => { 
+    const updateMovie  = req.body;
+    Movie.findOneAndUpdate((err, data)=> { 
+        if(err) return res.json({sucess: false, error:err});
+        return res.json({sucess: true, Movie: updateMovie});
     });
 };

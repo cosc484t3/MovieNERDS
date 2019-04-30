@@ -7,7 +7,7 @@ import { NewMovie } from './NewMovie'
 import { MovieQuotes } from './MovieQuotes';
 import { RecentMovies } from './RecentMovies'
 import { MovieDetail } from './MovieDetail'
-//import { Forum } from './Forum'
+import { Forum } from './Forum'
 import { CharacterDetails } from './CharacterDetails'
 
 const AppRouter = () => {
@@ -20,11 +20,9 @@ const AppRouter = () => {
                         <Route exact path="/" component={Homepage} />
                         <Route path="/all-movies" component={AllMovies} />
                         <Route path="/recent-movies" component={RecentMovies} />
-                        <Route path="/new-movie" component={NewMovie} />
                         <Route path="/movie-quotes" component={MovieQuotes} />
-                        {/* <Route path="/movieforum" component={Forum} /> */}
                         <Route path="/character-details" component={CharacterDetails} />
-                        <Route path="/:id" component={MovieDetail} />
+                        <Route path="/:id" component={Forum} />
                     </Switch>
                 </React.Fragment>
             </Router>
