@@ -167,10 +167,3 @@ class Comment extends Component {
     );
   }
 }
-
-// render(
-
-//   ,
-//   document.getElementById('app')
-
-// )
