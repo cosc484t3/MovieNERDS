@@ -18,7 +18,7 @@ const getSuggestionValue = movieSuggestion => movieSuggestion.title
 
 const renderSuggestion = movieSuggestion => ( 
     <Link to={`/${movieSuggestion.id}`}>
-        {/* <img src={movieSuggestion.imageURL} /> */}
+        <img src={movieSuggestion.imageURL} style={{width: "40px", height: "auto", marginRight: "15px"}} />
         {movieSuggestion.title}
     </Link>
   );

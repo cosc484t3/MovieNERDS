@@ -9,11 +9,11 @@ export class Forum extends Component {
 
   async componentDidMount(){
     try {
-      // retrieving the id from the url pathname and slicing it to ignore the / in the pathname
-      let movieID = window.location.pathname.slice(1) 
+      // retrieving the id from the url
+      let movieID = this.props.match.params.id
       axios.get(`${MOVIE_NERDS_API_URL}/movies/${movieID}`)
       .then(res => { 
-        this.setState({movie: res.data})
+        this.setState({movie: res.data[0]})
       })
       .catch(function (error) { 
         console.log(error);
@@ -27,102 +27,150 @@ export class Forum extends Component {
     const { movie } = this.state
 
     if(!movie) return null;
-
+    console.log(movie.title)
     return (
         <div className="body">
             <h1>{movie.title}</h1>
+            <img src={movie.bannerURL} alt={movie.title} style={{textAlign: "center"}}/>
+            Description: <p>{movie.synopsis}</p>
+            <a href='/'>Character Details</a>
+            <CommentBox data={commentData} />
         </div>
     )
   }
 }
 
-//   var CommentForum = React.createClass({
-//     getInitialState: function() {
-//       return {author: '', text: ''};
-//     },
-//     handleAuthorChange: function(e) {
-//       this.setState({author: e.target.value});
-//     },
-//     handleTextChange: function(e) {
-//       this.setState({text: e.target.value});
-//     },
-//     handleSubmit: function(e) {
-//       e.preventDefault();
-//       var author = this.state.author.trim();
-//       var text = this.state.text.trim();
-//       if (!text || !author) {
-//         return;
-//       }
-//       this.props.onCommentSubmit({author: author, text: text});
-//       this.setState({author: '', text: ''});
-//     },
-//     render: function() {
-//       return (
-//         <form className="CommentForum" onSubmit={this.handleSubmit}>
-//           <input
-//             type="text"
-//             placeholder="Name"
-//             value={this.state.author}
-//             onChange={this.handleAuthorChange}
-//           />
-//           <input
-//             type="text"
-//             placeholder="Comment"
-//             value={this.state.text}
-//             onChange={this.handleTextChange}
-//           />
-//           <input type="submit" value="Post" />
-//         </form>
-//       );
-//     }
-//   });
-//   var CommentBox = React.createClass({
-//     /* loadCommentsFromServer: function() {
-//       $.ajax({
-//         url: this.props.url,
-//         dataType: 'json',
-//         cache: false,
-//         success: function(data) {
-//           this.setState({data: data});
-//         }.bind(this),
-//         error: function(i, status, err) {
-//           console.error(this.props.url, status, err.toString());
-//         }.bind(this)
-//       });
-//     },
-//     handleCommentSubmit: function(comment) {
-//       var comments = this.state.data;
-//       comment.id = Date.now();
-//       var newComments = comments.concat([comment]);
-//       this.setState({data: newComments});
-//       $.ajax({
-//         url: this.props.url,
-//         dataType: 'json',
-//         type: 'POST',
-//         data: comment,
-//         success: function(data) {
-//           this.setState({data: data});
-//         }.bind(this),
-//         error: function(i, status, err) {
-//           this.setState({data: comments});
-//           console.error(this.props.url, status, err.toString());
-//         }.bind(this)
-//       });
-//     }, */
-//     getInitialState: function() {
-//       return {data: []};
-//     },
-//     componentDidMount: function() {
-//       this.loadCommentsFromServer();
-//       setInterval(this.loadCommentsFromServer, this.props.pollInterval);
-//     },
-//     render: function() {
-//       return (
-//         <div className="commentBox">
-//           <h1>Comments</h1>
-//           {/* <CommentList data={this.state.data} />
-//           <CommentForum onCommentSubmit={this.handleCommentSubmit} /> */}
-//         </div>
-//       );
-//     }
-//   });
+var commentData = [
+
+  { 
+    user:"Admin", 
+    out:"Please be respectful!"
+  },
+  
+];
+
+class CommentBox extends Component {
+
+  getInitialState() {
+
+    return {
+
+      data: commentData
+
+    }
+
+  }
+
+  handleCommentSubmit(comment) {
+
+    this.props.data.push(comment);
+    var comments = this.state.data;
+    var newComments = comments.concat([comment]);
+    this.setState({data: newComments});
+
+  }
+
+  render() {
+
+    return (
+
+      <div className="commBox">
+        <CommentForm data={this.props.data} onCommentSubmit={this.handleCommentSubmit} />
+        <CommentList data={this.props.data} />
+      </div>
+
+    );
+  }
+}
+
+class CommentList extends Component{
+
+  render() {
+
+    return (
+
+      <div className="commList">
+        {this.props.data.map(function(i){
+          return (
+
+            <Comment user={i.user} out={i.out} />
+          );
+
+        })}
+      </div>
+
+    );
+  }
+}
+
+class CommentForm extends Component{
+
+  handleSubmit(i) {
+
+    i.preventDefault();
+    var userValue = i.target[0].value.trim();
+    var outValue = i.target[1].value.trim();
+
+    if (!outValue || !userValue) {
+
+      return;
+
+    }
+
+    this.props.onCommentSubmit({user: userValue, out: outValue});
+    i.target[0].value = '';
+    i.target[1].value = '';
+
+    return;
+
+  }
+
+  render() {
+
+    return(
+
+      //was <form className="comment-form form-group" onSubmit={this.handleSubmit}>
+      // <div className="input-group">
+      //     <span className="input-group-addon">Name</span>
+      //     <input type="text" placeholder="Your name" className="form-control" />
+      <form className="forumGroup" onSubmit={this.handleSubmit}>
+        <div className="inputGroup">
+          <span className="addition"><h4>Name: </h4> </span>
+          <input type="text" placeholder="Type your name" className="ctrl" />
+        </div>
+
+        <div className="inputGroup">
+          <span className="addition"><h4>Comment: </h4></span>
+          <input type="text" placeholder="Type your message" className="ctrl" />
+        </div>
+
+        <input type="submit" value="Post" className="button" />
+
+      </form>
+
+    );
+  }
+}
+
+class Comment extends Component {
+
+  render() {
+
+    return (
+
+      <div className="comment">
+        <br></br>
+        <h4 className="user">{this.props.user}</h4>
+        {this.props.out}
+      </div>
+
+    );
+  }
+}
+
+// render(
+
+//   ,
+//   document.getElementById('app')
+
+// )

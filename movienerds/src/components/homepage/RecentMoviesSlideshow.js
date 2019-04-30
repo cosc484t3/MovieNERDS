@@ -1,11 +1,8 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-
-// API general route
 import { MOVIE_NERDS_API_URL } from '../common/App'
-
-// CSS file
 import '../../layout/recent-movies.css';
+import axios from 'axios'
 
 export class RecentMoviesSlideshow extends Component {
 
@@ -19,11 +16,15 @@ export class RecentMoviesSlideshow extends Component {
 
   async componentDidMount(){
     try{
-      let response = await fetch(`${MOVIE_NERDS_API_URL}/movies/recent`)
-      let recentMovies = await response.json()
-      this.setState({
-        recentMovies: recentMovies.movies,
-        currentMovie: recentMovies.movies[0]
+      axios.get(`${MOVIE_NERDS_API_URL}/movies/recent`)
+      .then(res => { 
+        this.setState({
+          recentMovies: res.data, 
+          currentMovie: res.data[0]
+        })
+      })
+      .catch(function (error) { 
+        console.log(error);
       })
     }
     catch(e){
@@ -64,7 +65,7 @@ export class RecentMoviesSlideshow extends Component {
     if(!recentMovies) return null
 
     let slideIndex = recentMovies.findIndex(movie => movie.id === currentMovie.id)
-
+    console.log('Current movie id: ', currentMovie.id)
     return (
       <div className="slideshow">
         <div className="slide">
@@ -73,7 +74,7 @@ export class RecentMoviesSlideshow extends Component {
           </Link>
         </div>
         <div className="left-arrow" onClick={() => this.previousSlide(slideIndex)}>&#9664;</div>
-        <div className="right-arrow" onClick={() => this.nextSlide(slideIndex)}>&#9654;</div>
+        <div className="right-arrow" onClick={() => this.nextSlide(slideIndex + 1)}>&#9654;</div>
       </div>
     )
   }

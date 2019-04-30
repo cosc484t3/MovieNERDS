@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 let MovieSchema = new Schema({
+    id: {
+        type: Number,
+        required: 'Movie must have an id'
+    },
     title: { 
         type: String,
         required: 'Movie must have a title'

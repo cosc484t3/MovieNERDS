@@ -33,7 +33,7 @@ router.get('/', async (req, res) => {
 
 //get all movies released during or after 2016
 router.get('/recent', async (req, res) => {
-    await data.getRecentMovies()
+    await Movie.find({year: {$gt: 2016}})
         .then(movieData => res.json(movieData))
         .catch(err => {
             if (err.status) {
@@ -47,11 +47,14 @@ router.get('/recent', async (req, res) => {
 //get specific movie by id
 router.get('/:id', async (req, res) => {
     const id = req.params.id
-     Movie.findById(id, function(err, movie) {
-         if(!id || err) { 
-             res.status(404).send(err);
-         }
-        res.json(movie);
+    Movie.find({id: id})
+    .then(movie => res.json(movie))
+    .catch(err => {
+        if(err.status){
+            res.status(err.status).json({ message: err.message })
+        } else {
+            res.status(500).json({ message: err.message })
+        }
     })
 })
 

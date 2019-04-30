@@ -22,6 +22,7 @@ function getMovies(){
 function getRecentMovies(){
     return new Promise((resolve, reject) => {
         const minRecentYear = 2016
+        console.log("Movie: ", Movie)
         let recentMovies = Movie.movies.filter(movie => movie.year >= minRecentYear)
         if(recentMovies.length === 0){
             reject({
