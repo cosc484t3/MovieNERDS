@@ -29,3 +29,10 @@ h2 {
     padding: 15px;
     border-radius: 8px
 }
+
+.col-gap { 
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    grid-column-gap: 35px;
+    text-align: center;
+}

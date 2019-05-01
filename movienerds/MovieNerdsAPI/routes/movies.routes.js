@@ -33,7 +33,7 @@ router.get('/', async (req, res) => {
 
 //get all movies released during or after 2016
 router.get('/recent', async (req, res) => {
-    await Movie.find({year: {$gt: 2016}})
+    await Movie.find({year: {$gt: 2015}})
         .then(movieData => res.json(movieData))
         .catch(err => {
             if (err.status) {

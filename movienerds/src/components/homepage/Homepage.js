@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import '../../layout/homepage.css'
+import '../../layout/Homepage.css'
 import { MOVIE_NERDS_API_URL } from '../common/App'
 // eslint-disable-next-line
 import { RecentMoviesSlideshow } from './RecentMoviesSlideshow'
@@ -61,9 +61,8 @@ export class Homepage extends Component {
               return(
                 <div className="movie-grid-item">
                   <Link to={`/${thumbnail.id}`} >
-                    <img src={thumbnail.imageURL} alt={thumbnail.title} style={{width: "250px"}}/>
+                    <img src={thumbnail.imageURL} alt={thumbnail.title} style={{ width: "250px"}}/>
                   </Link>
-                  <br />
                   <h3>{thumbnail.title}</h3>
                   <div>{thumbnail.synopsis}</div>
                 </div>

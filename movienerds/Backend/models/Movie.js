@@ -36,6 +36,10 @@ let MovieSchema = new Schema({
     },
     bannerURL: { 
         type: String
+    },
+    comments:{ 
+        type: [String],
+        default: undefined
     }
 });
 
