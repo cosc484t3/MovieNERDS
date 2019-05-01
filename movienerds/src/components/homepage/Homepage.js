@@ -65,7 +65,6 @@ export class Homepage extends Component {
                   </Link>
                   <br />
                   <h3>{thumbnail.title}</h3>
-                  {/* description is now synopsis */}
                   <div>{thumbnail.synopsis}</div>
                 </div>
               )
