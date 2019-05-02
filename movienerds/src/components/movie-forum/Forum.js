@@ -32,7 +32,8 @@ export class Forum extends Component {
         <div className="body">
             <h1>{movie.title}</h1>
             <img src={movie.bannerURL} alt={movie.title} style={{textAlign: "center"}}/>
-            Description: <p>{movie.synopsis}</p>
+            <br />
+            <strong>Description: </strong><p>{movie.synopsis}</p>
             <a href='/'>Character Details</a>
             <CommentBox data={commentData} />
         </div>

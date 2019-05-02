@@ -25,7 +25,8 @@ h2 {
 }
 
 .movie-grid-item {
-    background-color: rgba(249, 99, 47);
+    /* background-color: rgba(249, 99, 47); */
+    background-color: rgba(0, 247, 255, 0.658);
     padding: 15px;
     border-radius: 8px
 }

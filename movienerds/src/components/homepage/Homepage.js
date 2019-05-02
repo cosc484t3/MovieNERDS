@@ -49,7 +49,7 @@ export class Homepage extends Component {
             return(
               <div>
                 <p>{movie.quotes[quoteIndex]}</p>
-                <p>{movie.title}</p>
+                <strong><p>{movie.title}</p></strong>
               </div>
             )
           })}

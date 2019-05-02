@@ -4,7 +4,6 @@ import { MOVIE_NERDS_API_URL } from '../common/App'
 
 export class CharacterDetails extends Component {
     state = {
-      count: "",
       movies: []
     }
 
@@ -14,7 +13,7 @@ export class CharacterDetails extends Component {
           console.log(res)
           const movieData = await res.json();
           console.log(movieData)
-          this.setState({ count: movieData.count, movies: movieData.movies})
+          this.setState({ movies: movieData.movies})
           console.log("Newly set state: ", this.state)
         } catch(e) {
           console.log(e)

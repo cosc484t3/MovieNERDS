@@ -40,6 +40,14 @@ const MovieSchema = new Schema({
     comments:{ 
         type: [String],
         default: undefined
+    },
+    characters:{ 
+        type:[String],
+        default: undefined
+    },
+    ratings: {
+        type:[Number],
+        commentID: {type: Number}
     }
 })
 

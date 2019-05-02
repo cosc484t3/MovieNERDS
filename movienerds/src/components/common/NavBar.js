@@ -9,6 +9,9 @@ export class NavBar extends Component {
       <div className="navbar">
         <div className="menu-container">
           <ul className="menu">
+          <Link to="/">
+              <li className="menu-options">Home</li>
+            </Link>
             <Link to="/all-movies">
               <li className="menu-options">All Movies</li>
             </Link>
@@ -17,9 +20,6 @@ export class NavBar extends Component {
             </Link>
             <Link to="/movie-quotes">
               <li className="menu-options">Movie Quotes</li>
-            </Link>
-            <Link to="/new-movie">
-              <li className="menu-options">Insert New Movie</li>
             </Link>
             <Link to="/movieforum">
               <li className="menu-options">Forum</li>

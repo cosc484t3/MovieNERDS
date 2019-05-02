@@ -22,20 +22,35 @@
     float: left;
 }
 
-.left-arrow, .right-arrow {
+.left-arrow {
+    left: 20%;
     cursor: pointer;
     position: absolute;
     top: 70%;
     width: auto;
-    margin-top: -22px;
+    margin-top: 80px;
     padding: 16px;
-    color: red;
+    color: blue;
     font-weight: bold;
     font-size: 30px;
     user-select: none;
-    opacity: 0.5
+    /* opacity: 0; */
 }
 
 .right-arrow {
-    right: 365px;
+    right: 20%;
+    cursor: pointer;
+    position: absolute;
+    top: 70%;
+    width: auto;
+    margin-top: 80px;
+    padding: 16px;
+    color: blue;
+    font-weight: bold;
+    font-size: 30px;
+    user-select: none;
+    /* opacity: 0; */
+    
 }
+
+  
