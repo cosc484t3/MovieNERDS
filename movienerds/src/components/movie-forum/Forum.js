@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { MOVIE_NERDS_API_URL } from '../common/App'
 import axios from 'axios'
+import StarRatingComponent from 'react-star-rating-component'
 
 export class Forum extends Component {
   state = {
@@ -76,10 +77,12 @@ class CommentBox extends Component {
     return (
 
       <div className="commBox">
-        <CommentForm data={this.props.data} onCommentSubmit={this.handleCommentSubmit} />
-        <CommentList data={this.props.data} />
-      </div>
 
+        <CommentForm data={this.props.data} onCommentSubmit={this.handleCommentSubmit} />
+        <RateMe />
+        <CommentList data={this.props.data} />
+
+      </div>
     );
   }
 }
@@ -166,5 +169,33 @@ class Comment extends Component {
       </div>
 
     );
+  }
+}
+
+class RateMe extends Component {
+    constructor() {
+      super();
+
+      this.state = {
+        rating: 1
+      };
+  }
+
+  onStarClick(nextValue, prevValue, name) {
+      this.setState({rating: nextValue});
+  }
+  render() {
+      const {rating} = this.state;
+      return(
+          <div> 
+              <h2> Rate this movie: </h2>
+              <StarRatingComponent 
+              name = "rate1"
+              starCount ={5}
+              value ={rating}
+              onStarClick={this.onStarClick.bind(this)}
+              />
+          </div>
+      );
   }
 }
