@@ -1,51 +1,55 @@
 import React, { Component } from 'react';
-import { MOVIE_NERDS_API_URL } from './App'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import Autosuggest from 'react-autosuggest'
 import '../../layout/search-bar.css'
 import { Link } from 'react-router-dom'
-import axios from 'axios'
+import * as actions from '../../actions'
 
-const getSuggestions = (movies, value) => {
-    const inputValue = value.trim().toLowerCase();
-    const inputLength = inputValue.length;
 
-    return inputLength === 0 ? [] : movies.filter(movie => {
-        return movie.title.toLowerCase().slice(0, inputLength) === inputValue
-    });
-};
-
-const getSuggestionValue = movieSuggestion => movieSuggestion.title
-
-const renderSuggestion = movieSuggestion => ( 
-    <Link to={`/${movieSuggestion.id}`}>
-        <img src={movieSuggestion.imageURL} style={{width: "40px", height: "auto", marginRight: "15px"}} />
-        {movieSuggestion.title}
-    </Link>
-  );
-
-export class SearchBar extends Component {
+class SearchBar extends Component {
     
     state = {
         searchInput: "",
-            movies: [],
-            movieSearchResults: []
+        movieSearchResults: []
     }
     
     async componentDidMount(){
-        axios.get(`${MOVIE_NERDS_API_URL}/movies`)
-        .then(res => { 
-        this.setState({movies: res.data, movieThumbnails: [res.data[0], res.data[1], res.data[2]]})
-        })
-        .catch(function (error) { 
-        console.log(error);
-        })
+        const { actions, searchableMovies } = this.props
+        {!searchableMovies && actions.getAllSearchableMovies()}
+    }
+
+    getSuggestions = (movies, value) => {
+        const inputValue = value.trim().toLowerCase();
+        const inputLength = inputValue.length;
+    
+        return inputLength === 0 ? [] : movies.filter(movie => {
+            return movie.title.toLowerCase().slice(0, inputLength) === inputValue
+        });
+    };
+
+    getSuggestionValue = movieSuggestion => movieSuggestion.title
+
+    renderSuggestion = movieSuggestion => { 
+        return (
+            <div style={{height: "50px", display: "inline-block"}}>
+                <Link to={`/movie/${movieSuggestion.id}`}>
+                    <img 
+                        src={movieSuggestion.imageURL} 
+                        style={{width: "40px", height: "auto", marginRight: "15px", float: "left"}} 
+                        alt={movieSuggestion.title}
+                    />
+                    {movieSuggestion.title}
+                </Link>
+            </div>
+        );
     }
 
     onSuggestionsFetchRequested = ({value}) => {
-        console.log("Returned from getSuggestions: ", getSuggestions(this.state.movies, value))
+        const { searchableMovies } = this.props;
 
         this.setState({
-            movieSearchResults: getSuggestions(this.state.movies, value)
+            movieSearchResults: this.getSuggestions(searchableMovies, value)
         })
     }
 
@@ -55,6 +59,11 @@ export class SearchBar extends Component {
         })
     }
 
+    onSuggestionSelected = (event, { suggestion, suggestionValue, suggestionIndex, sectionIndex, method }) => {
+        const { actions } = this.props
+        actions.updateCurrentMovie(suggestion.id)
+    }
+
     onChange = (event, { newValue }) => {
         this.setState({
             searchInput: newValue
@@ -62,7 +71,8 @@ export class SearchBar extends Component {
     }
 
     render() {
-        let {movies, searchInput, movieSearchResults} = this.state;
+        const { searchableMovies } = this.props
+        let { searchInput, movieSearchResults } = this.state
 
         const inputProps = {
             placeholder: 'Search movie title...',
@@ -70,7 +80,7 @@ export class SearchBar extends Component {
             onChange: this.onChange
         }
 
-        if(!movies) return null
+        if(!searchableMovies) return null
 
         return (
             <div className="search-container">
@@ -78,11 +88,27 @@ export class SearchBar extends Component {
                     suggestions={movieSearchResults}
                     onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
                     onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-                    getSuggestionValue={getSuggestionValue}
-                    renderSuggestion={renderSuggestion}
+                    getSuggestionValue={this.getSuggestionValue}
+                    renderSuggestion={this.renderSuggestion}
                     inputProps={inputProps}
+                    onSuggestionSelected={this.onSuggestionSelected}
                 />
             </div>
         );
     }
 }
+
+const mapStateToProps = store => {
+    return {
+        currentMovie: store.currentMovie,
+        searchableMovies: store.searchableMovies
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        actions: bindActionCreators(actions, dispatch)
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchBar)

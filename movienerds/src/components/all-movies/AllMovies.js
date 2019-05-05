@@ -1,41 +1,32 @@
 import React, { Component } from 'react'
-import axios from 'axios';
 import { Link } from 'react-router-dom'
-import { MOVIE_NERDS_API_URL } from '../common/App'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import * as actions from '../../actions'
 import '../../layout/Homepage.css'
 
-export class AllMovies extends Component {
-  constructor(props){
-    super(props)
-    this.state = {
-      movies: [],
-      movieThumbnails: []
-    }
-  }
+class AllMovies extends Component {
 
   async componentDidMount(){
-    axios.get(`${MOVIE_NERDS_API_URL}/movies`)
-    .then(res => { 
-      this.setState({movies: res.data, movieThumbnails: res.data})
-    })
-    .catch(function (error) { 
-      console.log(error);
-    })
+    const { actions, allMovies } = this.props
+    {!allMovies && actions.getAllMovies()}
   }
 
   render() {
-    const { movieThumbnails } = this.state
+    const { allMovies } = this.props
+
+    if(!allMovies) return null
     return (
       <div>
         <>
          <div className="col-gap">
-            {movieThumbnails.map(thumbnail => {
+            {allMovies.map(movie => {
               return(
                 <div>
-                  <Link to={`/${thumbnail.id}`} >
-                    <img src={thumbnail.imageURL} alt={thumbnail.title} style={{ width: "250px"}}/>
+                  <Link to={`/movie/${movie.id}`} >
+                    <img src={movie.imageURL} alt={movie.title} style={{ width: "250px"}}/>
                   </Link>
-                  </div>
+                </div>
               )
             })}
           </div>
@@ -44,3 +35,17 @@ export class AllMovies extends Component {
     )
   }
 }
+
+const mapStateToProps = store => {
+  return {
+    allMovies: store.allMovies
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return{
+    actions: bindActionCreators(actions, dispatch)
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AllMovies);

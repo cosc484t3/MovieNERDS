@@ -1,39 +1,19 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { MOVIE_NERDS_API_URL } from '../common/App'
+import { connect } from 'react-redux'
 import '../../layout/recent-movies.css';
-import axios from 'axios'
 
-export class RecentMoviesSlideshow extends Component {
+class RecentMoviesSlideshow extends Component {
 
   constructor(props){
     super(props)
     this.state = {
-      recentMovies: null,
-      currentMovie: {}
-    }
-  }
-
-  async componentDidMount(){
-    try{
-      axios.get(`${MOVIE_NERDS_API_URL}/movies/recent`)
-      .then(res => { 
-        this.setState({
-          recentMovies: res.data, 
-          currentMovie: res.data[0]
-        })
-      })
-      .catch(function (error) { 
-        console.log(error);
-      })
-    }
-    catch(e){
-      console.log("Fetching recent movies error: ", e)
+      localCurrentMovie: props.recentMovies[0]
     }
   }
 
   nextSlide(index){
-    let { recentMovies } = this.state
+    let { recentMovies } = this.props
     let nextSlide;
 
     if(index >= recentMovies.length){
@@ -42,12 +22,13 @@ export class RecentMoviesSlideshow extends Component {
     else{
       nextSlide = index + 1;
     }
-    this.setState({ currentMovie: recentMovies[nextSlide] })
+    this.setState({ localCurrentMovie: recentMovies[nextSlide] })
+    console.log(`Right arrow navigated to ${this.state.localCurrentMovie.title}`)
     return nextSlide;
   }
 
   previousSlide(index) {
-    let { recentMovies } = this.state;
+    let { recentMovies } = this.props;
     let previousSlide;
 
     if(index === 0){
@@ -56,21 +37,23 @@ export class RecentMoviesSlideshow extends Component {
     else{
       previousSlide = index - 1;
     }
-    this.setState({ currentMovie: recentMovies[previousSlide] })
+    this.setState({ localCurrentMovie: recentMovies[previousSlide] })
+    console.log(`Left arrow navigated to ${this.state.localCurrentMovie.title}`)
   }
 
   render() {
-    let { currentMovie, recentMovies } = this.state;
+    let { localCurrentMovie } = this.state;
+    let { recentMovies } = this.props;
     
-    if(!recentMovies) return null
+    if(!recentMovies) return null;
+    else if(!localCurrentMovie) return null;
 
-    let slideIndex = recentMovies.findIndex(movie => movie.id === currentMovie.id)
-    console.log('Current movie id: ', currentMovie.id)
+    let slideIndex = recentMovies.findIndex(movie => movie.id === localCurrentMovie.id)
     return (
       <div className="slideshow">
         <div className="slide">
-          <Link to={`/${currentMovie.id}`}>
-            <img className="recent-movie-banner" src={currentMovie.bannerURL} alt={currentMovie.title}/>
+          <Link to={`/movie/${localCurrentMovie.id}`}>
+            <img className="recent-movie-banner" src={localCurrentMovie.bannerURL} alt={localCurrentMovie.title}/>
           </Link>
         </div>
         <div className="left-arrow" onClick={() => this.previousSlide(slideIndex)}>&#9664;</div>
@@ -79,3 +62,5 @@ export class RecentMoviesSlideshow extends Component {
     )
   }
 }
+
+export default connect()(RecentMoviesSlideshow)

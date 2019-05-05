@@ -1,39 +1,32 @@
 import React, { Component } from 'react'
-import { MOVIE_NERDS_API_URL } from '../common/App'
-import axios from 'axios';
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import { Link } from 'react-router-dom'
 import '../../layout/Homepage.css'
+import * as actions from '../../actions'
 
-export class RecentMovies extends Component {
-  constructor(props){
-    super(props)
-    this.state = {
-      movies: [],
-      movieThumbnails: []
-    }
-  }
+class RecentMovies extends Component {
 
   async componentDidMount(){
-    axios.get(`${MOVIE_NERDS_API_URL}/movies/recent`)
-    .then(res => { 
-      this.setState({movies: res.data})
-    })
-    .catch(function (error) { 
-      console.log(error);
-    })
+    const { actions } = this.props
+    actions.getRecentMovies()
   }
+  
   render() {
-    const { movies, movieThumbnails } = this.state
+    const { recentMovies } = this.props
+
+    if(!recentMovies) return null
+
     return (
       <div>
        <div id="movie thumbnail display" style={{paddingLeft: "15px"}}>
           <h2>Featured Movies & Descriptions</h2>
           <div className="movie-grid">
-            {movies.map(thumbnail => {
+            {recentMovies.map(thumbnail => {
               return(
                 <>
                   <div className="movie-grid-item">
-                  <Link to={`/${thumbnail.id}`} >
+                  <Link to={`/movie/${thumbnail.id}`} >
                     <img src={thumbnail.imageURL} alt={thumbnail.title} style={{width: "250px"}}/>
                   </Link>
                   <br />
@@ -51,3 +44,17 @@ export class RecentMovies extends Component {
     )
   }
 }
+
+const mapStateToProps = store => {
+  return {
+    recentMovies: store.recentMovies
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return{
+    actions: bindActionCreators(actions, dispatch)
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(RecentMovies);

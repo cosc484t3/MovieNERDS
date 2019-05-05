@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import '../../layout/nav-bar.css'
-import { SearchBar } from './SearchBar';
+import SearchBar from './SearchBar';
 
 export class NavBar extends Component {
   render() {
@@ -20,12 +20,6 @@ export class NavBar extends Component {
             </Link>
             <Link to="/movie-quotes">
               <li className="menu-options">Movie Quotes</li>
-            </Link>
-            <Link to="/movieforum">
-              <li className="menu-options">Forum</li>
-            </Link>
-            <Link to="/character-details">
-              <li className="menu-options">Character Details</li>
             </Link>
           </ul>
           <SearchBar />

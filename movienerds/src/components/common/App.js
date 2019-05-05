@@ -6,8 +6,8 @@ import { connect } from 'react-redux';
 //Component imports
 import { Header } from './Header';
 import Homepage from '../homepage/Homepage'
-import { AllMovies } from '../all-movies/AllMovies'
-import { RecentMovies } from '../recent-movies/RecentMovies'
+import AllMovies from '../all-movies/AllMovies'
+import RecentMovies from '../recent-movies/RecentMovies'
 import { MovieQuotes } from '../movie-quotes/MovieQuotes'
 import CharacterDetails from '../movie-forum/CharacterDetails'
 import Forum from '../movie-forum/Forum'

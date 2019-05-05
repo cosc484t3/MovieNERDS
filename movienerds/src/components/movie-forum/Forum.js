@@ -1,201 +1,53 @@
 import React, { Component } from 'react'
-import { MOVIE_NERDS_API_URL } from '../common/App'
-import axios from 'axios'
-import StarRatingComponent from 'react-star-rating-component'
+import { Link } from 'react-router-dom'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import { CommentBox } from './comments/CommentBox'
+import * as actions from '../../actions'
 
-export class Forum extends Component {
-  state = {
-    movie: {}
-  }
+import '../../layout/forum.css'
 
+class Forum extends Component {
   async componentDidMount(){
-    try {
-      // retrieving the id from the url
+    const { actions } = this.props
       let movieID = this.props.match.params.id
-      axios.get(`${MOVIE_NERDS_API_URL}/movies/${movieID}`)
-      .then(res => { 
-        this.setState({movie: res.data[0]})
-      })
-      .catch(function (error) { 
-        console.log(error);
-      })
-    } catch(e) {
-      console.log(e)
-    }
+      actions.updateCurrentMovie(movieID)
   }
   
   render() {
-    const { movie } = this.state
+    const { currentMovie } = this.props
+    var commentData = [
+      { 
+        user:"Admin", 
+        out:"Please be respectful!"
+      },
+    ];
 
-    if(!movie) return null;
-    console.log(movie.title)
+    if(!currentMovie) return null;
+
     return (
         <div className="body">
-            <h1>{movie.title}</h1>
-            <img src={movie.bannerURL} alt={movie.title} style={{textAlign: "center"}}/>
+            <h1>{currentMovie.title}</h1>
+            <img src={currentMovie.bannerURL} alt={currentMovie.title} style={{textAlign: "center"}}/>
             <br />
-            <strong>Description: </strong><p>{movie.synopsis}</p>
-            <a href='/'>Character Details</a>
+            <strong>Description: </strong><p>{currentMovie.synopsis}</p>
+            <Link to={`/character-details/${currentMovie.id}`}>Character Details</Link>
             <CommentBox data={commentData} />
         </div>
     )
   }
 }
 
-var commentData = [
-
-  { 
-    user:"Admin", 
-    out:"Please be respectful!"
-  },
-  
-];
-
-class CommentBox extends Component {
-
-  getInitialState() {
-
-    return {
-
-      data: commentData
-
-    }
-
-  }
-
-  handleCommentSubmit(comment) {
-
-    this.props.data.push(comment);
-    var comments = this.state.data;
-    var newComments = comments.concat([comment]);
-    this.setState({data: newComments});
-
-  }
-
-  render() {
-
-    return (
-
-      <div className="commBox">
-
-        <CommentForm data={this.props.data} onCommentSubmit={this.handleCommentSubmit} />
-        <RateMe />
-        <CommentList data={this.props.data} />
-
-      </div>
-    );
+const mapStateToProps = store => {
+  return{
+    currentMovie: store.currentMovie
   }
 }
 
-class CommentList extends Component{
-
-  render() {
-
-    return (
-
-      <div className="commList">
-        {this.props.data.map(function(i){
-          return (
-
-            <Comment user={i.user} out={i.out} />
-          );
-
-        })}
-      </div>
-
-    );
+const mapDispatchToProps = dispatch => {
+  return{
+    actions: bindActionCreators(actions, dispatch)
   }
 }
 
-class CommentForm extends Component{
-
-  handleSubmit(i) {
-
-    i.preventDefault();
-    var userValue = i.target[0].value.trim();
-    var outValue = i.target[1].value.trim();
-
-    if (!outValue || !userValue) {
-
-      return;
-
-    }
-
-    this.props.onCommentSubmit({user: userValue, out: outValue});
-    i.target[0].value = '';
-    i.target[1].value = '';
-
-    return;
-
-  }
-
-  render() {
-
-    return(
-
-      //was <form className="comment-form form-group" onSubmit={this.handleSubmit}>
-      // <div className="input-group">
-      //     <span className="input-group-addon">Name</span>
-      //     <input type="text" placeholder="Your name" className="form-control" />
-      <form className="forumGroup" onSubmit={this.handleSubmit}>
-        <div className="inputGroup">
-          <span className="addition"><h4>Name: </h4> </span>
-          <input type="text" placeholder="Type your name" className="ctrl" />
-        </div>
-
-        <div className="inputGroup">
-          <span className="addition"><h4>Comment: </h4></span>
-          <input type="text" placeholder="Type your message" className="ctrl" />
-        </div>
-
-        <input type="submit" value="Post" className="button" />
-
-      </form>
-
-    );
-  }
-}
-
-class Comment extends Component {
-
-  render() {
-
-    return (
-
-      <div className="comment">
-        <br></br>
-        <h4 className="user">{this.props.user}</h4>
-        {this.props.out}
-      </div>
-
-    );
-  }
-}
-
-class RateMe extends Component {
-    constructor() {
-      super();
-
-      this.state = {
-        rating: 1
-      };
-  }
-
-  onStarClick(nextValue, prevValue, name) {
-      this.setState({rating: nextValue});
-  }
-  render() {
-      const {rating} = this.state;
-      return(
-          <div> 
-              <h2> Rate this movie: </h2>
-              <StarRatingComponent 
-              name = "rate1"
-              starCount ={5}
-              value ={rating}
-              onStarClick={this.onStarClick.bind(this)}
-              />
-          </div>
-      );
-  }
-}
+export default connect(mapStateToProps, mapDispatchToProps)(Forum)

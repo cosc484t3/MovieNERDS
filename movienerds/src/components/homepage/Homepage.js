@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 import '../../layout/Homepage.css'
-import { MOVIE_NERDS_API_URL } from '../common/App'
 // eslint-disable-next-line
-import { RecentMoviesSlideshow } from './RecentMoviesSlideshow'
-import axios from 'axios';
+import RecentMoviesSlideshow from './RecentMoviesSlideshow'
+import * as actions from '../../actions'
 
-export class Homepage extends Component {
+class Homepage extends Component {
   constructor(props){
     super(props)
     this.state = {
@@ -16,13 +17,10 @@ export class Homepage extends Component {
   }
 
   async componentDidMount(){
-    axios.get(`${MOVIE_NERDS_API_URL}/movies`)
-    .then(res => { 
-      this.setState({movies: res.data, movieThumbnails: [res.data[0], res.data[1], res.data[2]]})
-    })
-    .catch(function (error) { 
-      console.log(error);
-    })
+    const { actions } = this.props
+
+    actions.getAllMovies()
+    actions.getRecentMovies()
   }
 
   chooseAQuote(){
@@ -30,16 +28,19 @@ export class Homepage extends Component {
   }
 
   render() {
-    const { movies, movieThumbnails } = this.state
+    const { movies, recentMovies } = this.props
+    const { updateCurrentMovie } = this.props.actions
     let quoteIndex = this.chooseAQuote()
 
     if(!movies) return null;
+
+    let movieThumbnails = [movies[23], movies[1], movies[2]]
 
     return (
       <div className="body">
         <h2 style={{paddingLeft: "15px"}}>Recent Movies</h2>
         <div id="recently-uploaded-movies">
-          <RecentMoviesSlideshow />
+          {recentMovies && <RecentMoviesSlideshow recentMovies={recentMovies}/>}
         </div>
         <div id="movie-quotes-display" style={{paddingLeft: "16px"}}>
           <Link to="/movie-quotes" style={{textDecoration: "none", color: "white"}}>
@@ -60,9 +61,7 @@ export class Homepage extends Component {
             {movieThumbnails.map(thumbnail => {
               return(
                 <div className="movie-grid-item">
-                  <Link to={`/${thumbnail.id}`} >
                     <img src={thumbnail.imageURL} alt={thumbnail.title} style={{ width: "250px"}}/>
-                  </Link>
                   <h3>{thumbnail.title}</h3>
                   <div>{thumbnail.synopsis}</div>
                 </div>
@@ -74,3 +73,19 @@ export class Homepage extends Component {
     )
   }
 }
+
+const mapStateToProps = store => {
+  return{
+    movies: store.allMovies,
+    recentMovies: store.recentMovies,
+    currentMovie: store.currentMovie
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return{
+    actions: bindActionCreators(actions, dispatch)
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Homepage);

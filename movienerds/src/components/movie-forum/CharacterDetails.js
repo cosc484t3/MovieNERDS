@@ -1,29 +1,21 @@
 import React, { Component } from 'react'
 import '../../layout/CharacterDetails.scss'
-import { MOVIE_NERDS_API_URL } from '../common/App'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import * as actions from '../../actions'
 
-export class CharacterDetails extends Component {
-    state = {
-      movies: []
-    }
+class CharacterDetails extends Component {
 
     async componentDidMount(){
-        try {
-          const res = await fetch(`${MOVIE_NERDS_API_URL}/movies`)
-          console.log(res)
-          const movieData = await res.json();
-          console.log(movieData)
-          this.setState({ movies: movieData.movies})
-          console.log("Newly set state: ", this.state)
-        } catch(e) {
-          console.log(e)
-        }
+        const { actions } = this.props
+        let movieID = this.props.match.params.id
+        actions.updateCurrentMovie(movieID)
     }
 
     render() {
-        const { movies } = this.state
+        const { currentMovie } = this.props
 
-        if(!movies) return null;
+        if(!currentMovie) return null;
 
         return(
             <div class="grid-container">
@@ -80,3 +72,17 @@ export class CharacterDetails extends Component {
         )
     }
 }
+
+const mapStateToProps = store => {
+    return {
+        currentMovie: store.currentMovie
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return{
+      actions: bindActionCreators(actions, dispatch)
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CharacterDetails)
