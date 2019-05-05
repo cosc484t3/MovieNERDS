@@ -74,7 +74,7 @@ router.post('/add', async (req, res) => {
 
 //update a movie
 router.post('/update/:id', async (req, res) => {
-    Movie.findById(req.params.id, function (err, movie) {
+    Movie.findById({id: id}, function (err, movie) {
         if (!movie) {
             res.status(404).send('movie was not found');
         } else {
