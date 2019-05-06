@@ -21,51 +21,15 @@ class CharacterDetails extends Component {
             <div class="grid-container">
                 <div class="grid">
                     <ul class="char-grid">
-                        <li>
-                            <img src="https://pbs.twimg.com/profile_images/846659478120366082/K-kZVvT8_400x400.jpg" alt="test" />
-                            <span class="overlay"></span>
-                            <span class="overlay-text">Character 1</span>
-                        </li>
-                        <li>
-                            <img src="https://pbs.twimg.com/profile_images/846659478120366082/K-kZVvT8_400x400.jpg" alt="test" />
-                            <span class="overlay"></span>
-                            <span class="overlay-text">Character 2</span>
-                        </li>
-                        <li>
-                            <img src="https://pbs.twimg.com/profile_images/846659478120366082/K-kZVvT8_400x400.jpg" alt="test" />
-                            <span class="overlay"></span>
-                            <span class="overlay-text">Character 3</span>
-                        </li>
-                        <li>
-                            <img src="https://pbs.twimg.com/profile_images/846659478120366082/K-kZVvT8_400x400.jpg" alt="test" />
-                            <span class="overlay"></span>
-                            <span class="overlay-text">Character 4</span>
-                        </li>
-                        <li>
-                            <img src="https://pbs.twimg.com/profile_images/846659478120366082/K-kZVvT8_400x400.jpg" alt="test" />
-                            <span class="overlay"></span>
-                            <span class="overlay-text">Character 5</span>
-                        </li>
-                        <li>
-                            <img src="https://pbs.twimg.com/profile_images/846659478120366082/K-kZVvT8_400x400.jpg" alt="test" />
-                            <span class="overlay"></span>
-                            <span class="overlay-text">Character 6</span>
-                        </li>
-                        <li>
-                            <img src="https://pbs.twimg.com/profile_images/846659478120366082/K-kZVvT8_400x400.jpg" alt="test" />
-                            <span class="overlay"></span>
-                            <span class="overlay-text">Character 7</span>
-                        </li>
-                        <li>
-                            <img src="https://pbs.twimg.com/profile_images/846659478120366082/K-kZVvT8_400x400.jpg" alt="test" />
-                            <span class="overlay"></span>
-                            <span class="overlay-text">Character 8</span>
-                        </li>
-                        <li>
-                            <img src="https://pbs.twimg.com/profile_images/846659478120366082/K-kZVvT8_400x400.jpg" alt="test" />
-                            <span class="overlay"></span>
-                            <span class="overlay-text">Character 9</span>
-                        </li>
+                        {currentMovie.characters.map(character => {
+                            return(
+                                <li>
+                                    <img src={character.imageURL} alt={character.name} />
+                                    <span class="overlay"></span>
+                                    <span class="overlay-text">{character.name}</span>
+                                </li>
+                            )
+                        })}
                     </ul>
                 </div>
             </div>

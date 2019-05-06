@@ -87,6 +87,7 @@ router.post('/update/:id', async (req, res) => {
             movie.description = req.body.description;
             movie.imageURL = req.body.imageURL;
             movie.bannerURL = req.body.bannerURL;
+            move.characters = req.body.characters;
             movie.save()
                 .then(movie => res.json({
                     message: `The movie ${movie.title} has been updated`,
