@@ -120,11 +120,35 @@ export function updateCurrentMovie(movieID){
 
 export function postComment(movie){
     return dispatch => {
-        return axios.post(`${MOVIE_NERDS_API_URL}/update/${movie.id}`, movie)
+        return axios.put(`${MOVIE_NERDS_API_URL}/movies/update/${movie.id}`, movie)
         .then(response => {
             if(response.status === 200){
                 console.log("Movie with id: ", movie.id, " has been successfully updated with your comment.")
-                dispatch(updateCurrentMovie(movie.id))
+                // dispatch(updateCurrentMovie(movie.id))
+                axios.get(`${MOVIE_NERDS_API_URL}/movies/${movie.id}`)
+                .then(response => {
+                    if(response.status === 200){
+                        dispatch({
+                            type: actionTypes.UPDATE_CURRENT_MOVIE_SUCCESS,
+                            currentMovie: response.data[0]
+                        })
+                    }
+                    else{
+                        dispatch({
+                            type: actionTypes.UPDATE_CURRENT_MOVIE_FAILURE,
+                            currentMovie: null,
+                            errorMessage: `Response status ${response.status}: The current movie was not updated.`
+                        })
+                    }
+                })
+                .catch(error => {
+                    let errorMsg = `updateCurrentMovie API call was unsuccessful: ${error}`
+                    dispatch({
+                        type: actionTypes.UPDATE_CURRENT_MOVIE_FAILURE,
+                        currentMovie: null,
+                        errorMessage: errorMsg
+                    })
+                })
             }
             else {
                 console.log("Posting your comment was unsuccessful for movie with id ", movie.id);

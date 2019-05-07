@@ -74,35 +74,32 @@ router.post('/add', async (req, res) => {
 
 //update a movie
 router.put('/update/:id', async (req, res) => {
+    let newMovie = new Movie(req.body);
     const id = req.params.id
-    Movie.find({id: id}, function (err, movie) {
-        if (!movie) {
-            res.status(404).send('movie was not found');
-        } else {
-            movie.id = req.body.id;
-            movie.title = req.body.title;
-            movie.year = req.body.year;
-            movie.rating = req.body.rating;
-            movie.cast = req.body.cast;
-            movie.quotes = req.body.quotes;
-            movie.genres = req.body.genres;
-            movie.description = req.body.description;
-            movie.imageURL = req.body.imageURL;
-            movie.bannerURL = req.body.bannerURL;
-            move.characters = req.body.characters;
-            movie.save()
-                .then(movie => res.json({
-                    message: `The movie ${movie.title} has been updated`,
-                    content: movie
-                }))
-                .catch(err => {
-                    if (err.status) {
-                        res.status(err.status).json({ message: err.message })
-                    }
-                    res.status(500).json({ message: err.message })
-                })
+    Movie.find({id: id})
+    .then(movie => {
+        const updatedMovie = {
+            id: req.body.id,
+            title: req.body.title,
+            year: req.body.year,
+            rating: req.body.rating,
+            cast: req.body.cast,
+            quotes: req.body.quotes,
+            genres: req.body.genres,
+            synopsis: req.body.description,
+            imageURL: req.body.imageURL,
+            bannerURL: req.body.bannerURL,
+            characters: req.body.characters
         }
-
+ 
+        newMovie.save(updatedMovie)
+        console.log(movie);
+        
+    }).catch(err => {
+        if (err.status) {
+            res.status(err.status).json({ message: err.message })
+        }
+        res.status(500).json({ message: err.message })
     })
 
 })

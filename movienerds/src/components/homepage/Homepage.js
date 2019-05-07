@@ -35,7 +35,7 @@ class Homepage extends Component {
     if(!movies) return null;
 
     let movieThumbnails = [movies[23], movies[11], movies[2]]
-    let movieQuotes = [movies[20], movies[28], movies[26], movies[18]]
+    let movieQuotes = [movies[20], movies[28], movies[26], movies[18], movies[23]]
 
     return (
       <div className="body">

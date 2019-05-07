@@ -29,7 +29,7 @@ class CommentForm extends Component{
     const username = document.getElementById("username").value.trim()
     const userInput = document.getElementById("comment").value.trim()
 
-    const comment = {name: username, text: userInput}
+    const comment = {username: username, text: userInput}
 
     let movieWithNewComment = {
       ...currentMovie,

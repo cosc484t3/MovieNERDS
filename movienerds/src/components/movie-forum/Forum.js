@@ -27,7 +27,7 @@ function CommentBox(props) {
       {props.comments.map(comment => {
         return(
           <div className="comment-box">
-            <h6>{comment.name}</h6>
+            <h6>{comment.username}</h6>
             <p>{comment.text}</p>
           </div>
         );
