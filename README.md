@@ -15,9 +15,8 @@ When I created the movie component, all of its PropTypes are required, so a movi
 - commentId: number, //unique property to iterate over
 - comments: Array //holds all of the comment objects
   - comment: Object
-    - id: number //unique identifier for each comment object
-    - body: String //will store the text that the user inputs
-    - username: String //username of person who leaves the comment
+    - name: String //username of person who leaves the comment
+    - body: text //the comment text
 
 ## How to start the API:
 The API should have it's own folder in the app's folder called _MovieNerdsAPI_
