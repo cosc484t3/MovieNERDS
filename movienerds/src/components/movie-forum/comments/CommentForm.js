@@ -84,10 +84,16 @@ class CommentForm extends Component{
   }
 }
 
+const mapStateToProps = store => {
+  return {
+    currentMovie: store.currentMovie
+  }
+}
+
 const mapDispatchToProps = dispatch => {
   return {
     actions: bindActionCreators(actions, dispatch)
   }
 }
 
-export default connect(mapDispatchToProps)(CommentForm)
+export default connect(mapStateToProps, mapDispatchToProps)(CommentForm)
