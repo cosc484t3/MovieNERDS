@@ -45,12 +45,12 @@ So, I installed a handful of packages for react in order to make it a little smo
   After you install those two dependencies, all you have to do is run ```npm start``` and that'll get your react app running.
   
 ## How to navigate and use the API and major features:
-- Navigation
-Our homepage has gateway portals to the designated pages we decided to implement and those include our Homepage, our Comment Forum,    and our Charatcer Details page.
+Navigation
+- Our homepage has gateway portals to the designated pages we decided to implement and those include our Homepage, our Comment Forum,    and our Charatcer Details page.
 Navigation is user friedly and that is via the homepage. In order to access the comment forum you must click on the desired movie in     which you want to navigate through. Via the comment forum there is a designated button that allows you access to the character details   page.
-- Homepage
-The API provides a homepage that inclides an Image Slider that includes movies that have been recently uploaded into the databse and     are displayed so. Underneathour slider we includes a section that displays famous movie lines for you to observe and interact with. We   then have movie images that are clickable and contain the title with a small descpription for the viewer.
-- Comment Forum
-For our forum we decidied to provide an image banner for the intended specific movie that includes movie scenes, the movies             description aswell as links to youtube videos that contain iconic scenes. Comments will be able to be featured and shown on the side     bars where anyone can leave a comment.
-- Character Details 
-The character details page includes the movie title and character list for the viewer and displays the characters in a diamond format.   When the viewer hovers over the character diamond it displays the role and character name. 
+Homepage
+- The API provides a homepage that inclides an Image Slider that includes movies that have been recently uploaded into the databse and     are displayed so. Underneathour slider we includes a section that displays famous movie lines for you to observe and interact with. We   then have movie images that are clickable and contain the title with a small descpription for the viewer.
+Comment Forum
+- For our forum we decidied to provide an image banner for the intended specific movie that includes movie scenes, the movies             description aswell as links to youtube videos that contain iconic scenes. Comments will be able to be featured and shown on the side     bars where anyone can leave a comment.
+Character Details 
+- The character details page includes the movie title and character list for the viewer and displays the characters in a diamond format.   When the viewer hovers over the character diamond it displays the role and character name. 
