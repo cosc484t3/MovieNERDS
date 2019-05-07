@@ -73,11 +73,13 @@ router.post('/add', async (req, res) => {
 })
 
 //update a movie
-router.post('/update/:id', async (req, res) => {
-    Movie.findById({id: id}, function (err, movie) {
+router.put('/update/:id', async (req, res) => {
+    const id = req.params.id
+    Movie.find({id: id}, function (err, movie) {
         if (!movie) {
             res.status(404).send('movie was not found');
         } else {
+            movie.id = req.body.id;
             movie.title = req.body.title;
             movie.year = req.body.year;
             movie.rating = req.body.rating;

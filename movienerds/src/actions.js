@@ -118,18 +118,20 @@ export function updateCurrentMovie(movieID){
     }
 }
 
-/* export function postComment(movie){
-    return axios.post(`${MOVIE_NERDS_API_URL}/update/${movie.id}`, movie)
-    .then(response => {
-        if(response.status === 200){
-            console.log("Movie with id: ", movie.id, " has been successfully updated with your comment.")
-            this.props.dispatch(updateCurrentMovie(movie.id))
-        }
-        else {
-            console.log("Posting your comment was unsuccessful for movie with id ", movie.id);
-        }
-    })
-    .catch(error => {
-        console.log("This route hates you: ", error)
-    })
-} */
+export function postComment(movie){
+    return dispatch => {
+        axios.post(`${MOVIE_NERDS_API_URL}/update/${movie.id}`, movie)
+        .then(response => {
+            if(response.status === 200){
+                console.log("Movie with id: ", movie.id, " has been successfully updated with your comment.")
+                dispatch(updateCurrentMovie(movie.id))
+            }
+            else {
+                console.log("Posting your comment was unsuccessful for movie with id ", movie.id);
+            }
+        })
+        .catch(error => {
+            console.log("This route hates you: ", error)
+        })
+    }
+}
