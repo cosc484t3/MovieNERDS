@@ -16,5 +16,7 @@
     "morgan": "^1.9.1",
     "nodemon": "^1.18.10"
   },
-  "dependencies": {}
+  "dependencies": {
+    "cors": "^2.8.5"
+  }
 }

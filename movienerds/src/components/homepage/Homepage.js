@@ -34,7 +34,8 @@ class Homepage extends Component {
 
     if(!movies) return null;
 
-    let movieThumbnails = [movies[23], movies[1], movies[2]]
+    let movieThumbnails = [movies[23], movies[11], movies[2]]
+    let movieQuotes = [movies[20], movies[28], movies[26], movies[18], movies[23]]
 
     return (
       <div className="body">
@@ -43,14 +44,12 @@ class Homepage extends Component {
           {recentMovies && <RecentMoviesSlideshow recentMovies={recentMovies}/>}
         </div>
         <div id="movie-quotes-display" style={{paddingLeft: "16px"}}>
-          <Link to="/movie-quotes" style={{textDecoration: "none", color: "white"}}>
-            <h2 style={{color: "black"}}>Random Movie Quotes</h2>
-          </Link>
-          {movies.map(movie => {
+          <h2 style={{color: "black"}}>Popular Movie Quotes</h2>
+          {movieQuotes.map(movieObj => {
             return(
               <div>
-                <p>{movie.quotes[quoteIndex]}</p>
-                <strong><p>{movie.title}</p></strong>
+                <p>{movieObj.quotes[0]}</p>
+                <strong><p>{movieObj.title}</p></strong>
               </div>
             )
           })}

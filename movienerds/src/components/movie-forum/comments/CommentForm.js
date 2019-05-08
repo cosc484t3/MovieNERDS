@@ -29,7 +29,7 @@ class CommentForm extends Component{
     const username = document.getElementById("username").value.trim()
     const userInput = document.getElementById("comment").value.trim()
 
-    const comment = {name: username, text: userInput}
+    const comment = {username: username, text: userInput}
 
     let movieWithNewComment = {
       ...currentMovie,
@@ -84,10 +84,16 @@ class CommentForm extends Component{
   }
 }
 
+const mapStateToProps = store => {
+  return {
+    currentMovie: store.currentMovie
+  }
+}
+
 const mapDispatchToProps = dispatch => {
   return {
     actions: bindActionCreators(actions, dispatch)
   }
 }
 
-export default connect(mapDispatchToProps)(CommentForm)
+export default connect(mapStateToProps, mapDispatchToProps)(CommentForm)

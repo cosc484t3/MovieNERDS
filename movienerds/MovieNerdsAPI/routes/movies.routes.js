@@ -73,36 +73,26 @@ router.post('/add', async (req, res) => {
 })
 
 //update a movie
-router.put('/update/:id', async (req, res) => {
+router.post('/update/:id', async (req, res) => {
+    let newMovie = new Movie(req.body);
     const id = req.params.id
-    Movie.find({id: id}, function (err, movie) {
-        if (!movie) {
-            res.status(404).send('movie was not found');
-        } else {
-            movie.id = req.body.id;
-            movie.title = req.body.title;
-            movie.year = req.body.year;
-            movie.rating = req.body.rating;
-            movie.cast = req.body.cast;
-            movie.quotes = req.body.quotes;
-            movie.genres = req.body.genres;
-            movie.description = req.body.description;
-            movie.imageURL = req.body.imageURL;
-            movie.bannerURL = req.body.bannerURL;
-            move.characters = req.body.characters;
-            movie.save()
-                .then(movie => res.json({
-                    message: `The movie ${movie.title} has been updated`,
-                    content: movie
-                }))
-                .catch(err => {
-                    if (err.status) {
-                        res.status(err.status).json({ message: err.message })
-                    }
-                    res.status(500).json({ message: err.message })
-                })
-        }
+    Movie.find({id: id})
+    .then(movie => {
+        const updatedMovie = {
+            ...movie,
+            comments:req.body.comments
 
+        }
+ 
+        newMovie.update(updatedMovie)
+        console.log(newMovie.update(updatedMovie));
+        console.log(newMovie);
+        
+    }).catch(err => {
+        if (err.status) {
+            res.status(err.status).json({ message: err.message })
+        }
+        res.status(500).json({ message: err.message })
     })
 
 })

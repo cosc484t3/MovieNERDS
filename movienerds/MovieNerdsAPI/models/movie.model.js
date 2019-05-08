@@ -2,7 +2,10 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 //Schema for how we define a movie object 
-
+var commentsBox = new Schema({
+    username:{type: String},
+        text: {type: String}
+})
 const MovieSchema = new Schema({ 
     id: { 
         type: Number
@@ -37,10 +40,8 @@ const MovieSchema = new Schema({
     bannerURL: { 
         type: String
     },
-    comments:{ 
-        type: [String],
-        default: undefined
-    },
+    comments:[commentsBox]
+    ,
     characters:{ 
         type:[String],
         default: undefined
