@@ -73,27 +73,20 @@ router.post('/add', async (req, res) => {
 })
 
 //update a movie
-router.put('/update/:id', async (req, res) => {
+router.post('/update/:id', async (req, res) => {
     let newMovie = new Movie(req.body);
     const id = req.params.id
     Movie.find({id: id})
     .then(movie => {
         const updatedMovie = {
-            id: req.body.id,
-            title: req.body.title,
-            year: req.body.year,
-            rating: req.body.rating,
-            cast: req.body.cast,
-            quotes: req.body.quotes,
-            genres: req.body.genres,
-            synopsis: req.body.description,
-            imageURL: req.body.imageURL,
-            bannerURL: req.body.bannerURL,
-            characters: req.body.characters
+            ...movie,
+            comments:req.body.comments
+
         }
  
-        newMovie.save(updatedMovie)
-        console.log(movie);
+        newMovie.update(updatedMovie)
+        console.log(newMovie.update(updatedMovie));
+        console.log(newMovie);
         
     }).catch(err => {
         if (err.status) {
